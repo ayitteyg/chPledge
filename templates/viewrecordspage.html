@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+    <div class="container-fluid">
+        <br><br>
+        <center>
+            <div class="col-lg-12">              
+                <img src="{% static 'images/lg2.png' %}" alt=""   width="90"  height="140">
+            </div>
+            <hr>
+            <input type="text" id="srchRCDInput" onkeyup="RCDfunction()" placeholder="Search for member" title="Type in a name">
+            <hr>  
+        </center>
+    </div>
+
+    <!--add receipt form-->
+    <div class="container-fluid">
+        <!--<center>-->
+            <div class="row">
+                <br>
+                <div  class="col-lg-12 ">                                     
+                    <table class="table">
+                        <tr>
+                            <th><small>Recorded by</small></th>
+                            <th><small>Date recorded</small></th>
+                            <th><small>Member Name</small></th>
+                            <th><small>Amount GHc:</small></th>
+                        </tr>
+                    </table>                                           
+                    
+                    <ul id="srchRCD">
+                        {% for rct in rcds %}
+                        <li> 
+                            <table id="RCD" class="table">
+                                <tr>
+                                    <td>  <small>{{rct.user}}</small> </td>
+                                    <td>  <small>{{rct.rdate}}</small> </td>
+                                    <td>  <a><small>{{rct.rname}}</small></a></td>
+                                    <td>
+                                        
+                                        <small>{{rct.ramount}}</small>&nbsp;&nbsp;
+                                        <span  id="{{rct.id}}" onclick="delete_receipt(this.id)" class="fa fa-trash-o"></span>
+                                    </td>
+                                </tr>
+                            </table> 
+                        </li>                                              
+                        {% endfor %}  
+                    </ul>                                  
+                </div>
+                    
+                <!-- editReceipt Modal/dialog -->                            
+                
+
+       <!-- </center>-->
+    </div>   
+    {% endblock %}
+</body>
+</html>
+

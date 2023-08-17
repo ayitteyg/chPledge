@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+    <div class="container-fluid">
+        <br><br>
+        <center>
+            <div class="col-lg-6">              
+                <img src="{% static 'images/lg2.png' %}" alt=""   width="90"  height="140">
+            </div>
+       
+            <hr>  
+        </center>
+    </div>
+ 
+
+    <!--Monthly summary-->
+    <div class="container-fluid  ">
+       
+        <center>
+            <div class="row">
+                <br>
+                <div  class="col-lg-12 box-element ">
+
+                    <small  style="color: rgb(13, 107, 107);">Monthly Receipts Summary </small>
+                    <br>  
+                                                        
+                    <table class="table  tbl-head">
+                        {{yr}}
+                        <tr class="tbl-head">
+                            <th><small>Month</small></th>
+                            <th><small>Total</small></th>
+                            <th><small>Count</small></th>
+                        </tr>
+                    </table>                                           
+                    
+                    <ul id="srchRCD">
+                        {% for item in mnths %}
+                         {% for m in item %}
+                        <li> 
+                            <table class="table">
+                                <tr  class="tbl-head2">
+                                    <td class="tbl-head2">  <small>{{m.month|date:'M'}}</small> </td>
+                                    <td class="tbl-head2">  <small>{{m.total}}</small> </td>
+                                    <td class="tbl-head2">  <small>{{m.count}}</small> </td>
+                                </tr>
+                            </table> 
+                        </li>                                              
+                        {% endfor %}
+                        {% endfor %}  
+                    </ul>                                
+                </div>
+                                             
+                <a href="{% url 'homepage' %}">Back
+                    <span class="fa fa-backward">
+
+                    </span>
+                </a>
+
+       </center>
+            </div>
+    </div>
+
+    {% endblock %}
+</body>
+</html>
+

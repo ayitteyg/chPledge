@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+    <div class="container-fluid">
+        <br><br>
+        <center>
+            <div class="col-lg-6">              
+                <span  class="fa fa-download product">
+                    <img src="{% static 'images/lg2.png' %}" alt=""   width="90"  height="140">
+                 </span>
+            </div> 
+        </center>
+    </div>
+    <br>
+
+     <!--upload file here
+     <div class="container-fluid">
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                {% include 'formTemplate.html'  with form=form%} 
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <small class="{{ message.tags}}"  style="color: brown;">{{message}}</small>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <br> 
+             <span  class="fa fa-download">
+                <button  type="submit"  class="btn btn-secondary">download</button>
+             </span>
+        </form>
+        <br>
+                         
+     </div> --> 
+     
+     <div class="container-fluid">
+
+         <span  class="fa fa-file">
+            <a>&nbsp;&nbsp;Download summary / report </a>
+         </span>
+         <hr>
+
+        <!--<center>-->
+            <div class="col-lg-6" >              
+                <ul class="exportUL">
+                    <li><span class="fa fa-download"   onclick="registered()"></span><a>&nbsp;Registered Members Data</a> </li>
+                    <li><span class="fa fa-download"  onclick="receipts()" ></span>  <a>&nbsp;Pledges Received Data</a> </li>
+                    <li>
+                        <span class="fa fa-download"  onclick="Members_Pledges()" ></span><a>&nbsp;Members_Pledges </a>
+                        <ul class="hidden" id="MP">
+                            {% for i in yr %}
+                            <li><a href="{% url 'Memberspledge' i %}">{{i}}</a></li>
+                            {% endfor %}
+                         </ul>
+                     </li>
+                    <li>
+                        <span class="fa fa-download"  onclick="Members_Pledge_Payments()" ></span><a>&nbsp;Members Pledge Payments </a>
+                        <ul class="hidden" id="MPP">
+                            {% for i in yr %}
+                            <li><a href="{% url 'Memberspayments' i %}">{{i}}</a></li>
+                            {% endfor %}
+                         </ul> 
+                    </li>
+                    <!--<li>
+                        <span class="fa fa-download"  onclick="Members_Pledge_Balance()" ></span><a>&nbsp;Members Pledge Balance</a>
+                        <ul class="hidden" id="MPB">
+                            {% for i in yr %}
+                            <li><a href="">{{i}}</a></li>
+                            {% endfor %}
+                         </ul> 
+                    </li>-->
+                </ul>
+            </div>
+            <hr>  
+        <!--</center>-->
+    </div>
+
+
+
+    {% endblock %}
+</body>
+</html>
+
+
+
+  

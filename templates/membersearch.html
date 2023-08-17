@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+    <div class="container-fluid">
+        <br><br>
+        <center>
+            <div class="col-lg-6">              
+                <img src="{% static 'images/lg2.png' %}" alt=""   width="90"  height="140">
+            </div>
+            <hr>  
+        </center>
+    </div>
+    <input type="text" id="srchInput" onkeyup="myFunction()" placeholder="Search for member" title="Type in a name">  
+    <hr>
+
+
+     <!--display members name-->
+     <div class="container-fluid">
+           
+        <ul id="srchUL">
+          {% for nm in mem %} 
+              <li  
+                onclick="show_addReceipt()"  id="{{nm}}"> <a href="{% url 'addreceipt' nm.name nm.id %}"> {{nm.name}}</a> 
+              </li>        
+          {% endfor %}  
+        </ul>           
+     </div>    
+    {% endblock %}
+</body>
+</html>
+
+
+
+  

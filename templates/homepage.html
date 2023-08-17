@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+    <div class="container-fluid">
+        <br><br>
+        <center>
+            <div class="col-lg-6">              
+                <img src="{% static 'images/lg2.png' %}" alt=""   width="90"  height="140">
+            </div>
+       
+            <hr>  
+        </center>
+    </div>
+
+    <!--Yearly Pledge made summary-->
+    <div class="container-fluid">
+        <!--<center>-->
+            <div class="row">
+                <br>
+                <div  class="col-lg-12  box-element ">
+                    <small  style="color: rgb(15, 15, 180);">Pledge Committed Summary</small>                                   
+                    <table class="table">
+                        <tr  class="tbl-head">
+                            <th><small>Year</small></th>
+                            <th><small>Pledge Count</small></th>
+                            <th><small>Pledge Value</small></th>
+                        </tr>
+                    </table>                                           
+                    
+                    <ul id="srchRCD">
+                        {% for item in plg %}
+                          {% for i in item  %}
+                        <li> 
+                            <table class="table">
+                                <tr  class="tbl-head">
+                                    <td>  <small>{{i.pdate__year}}</small> </td>
+                                    <td>  <small>{{i.count}}</small> </td>
+                                    <td>  <small>{{i.total}}</small> </td>                                  
+                                </tr>
+                            </table> 
+                        </li>                                              
+                        {% endfor %} 
+                       {% endfor %}   
+                    </ul>                                  
+                </div>
+                    
+                <!-- editReceipt Modal/dialog -->                            
+                
+
+       <!-- </center>-->
+            </div>
+    </div>  
+    <br>
+
+
+     <!--Yearly Pledge Receipt summary-->
+     <div class="container-fluid">
+        <!--<center>-->
+            <div class="row">
+                <br>
+                <div  class="col-lg-12  box-element">
+                    <small  style="color: rgb(116, 16, 16);">Yeary Pledge Receipts Summary </small>                                   
+                    <table class="table">
+                        <tr class="tbl-head">
+                            <th><small>Year</small></th>
+                            <th><small>Receipts Count</small></th>
+                            <th><small>Receipts Value</small></th>
+                        </tr>
+                    </table>                                           
+                    
+                    <ul id="srchPLG">
+                        {% for item in rct %}
+                          {% for i in item  %}
+                        <li> 
+                            <table class="table">
+                                <tr class="tbl-head2">
+                                    <td class="tbl-head2">  <small>{{i.rdate__year}}</small> </td>
+                                    <td class="tbl-head2">  <small>{{i.count}}</small> </td>
+                                    <td class="tbl-head2">  <small>{{i.total}}</small> </td>                                  
+                                </tr>
+                            </table> 
+                        </li>                                              
+                        {% endfor %} 
+                       {% endfor %}   
+                    </ul>                                  
+                </div>
+                    
+                <!-- editReceipt Modal/dialog -->                            
+                
+
+       <!-- </center>-->
+            </div>
+    </div>
+
+
+    
+    
+
+    <!--Monthly summary-->
+    <div class="container-fluid  ">
+       
+        <center>
+            <div class="row">
+                <br>
+                <div  class="col-lg-12 box-element ">
+
+                    <small  style="color: rgb(13, 107, 107);">Monthly Receipts Summary </small>
+                    <br>  
+                    <!--breadcumb bar-->
+                    <center>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            {% for y in yr %}
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <a href="{% url 'monthlysum' y %}">{{y}}</a>  
+                                   
+                                </li>
+                                
+                            {% endfor %} 
+                        
+                        </ol>
+                    </nav>
+                    </center>
+                            
+                </div>
+       </center>
+            </div>
+    </div>
+
+    {% endblock %}
+</body>
+</html>
+
