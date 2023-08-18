@@ -1,34 +1,33 @@
-from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
-from django.http import HttpResponse, Http404,response
-from http import HTTPStatus
+from django.shortcuts import render, HttpResponse, redirect
+#from django.http import HttpResponse, Http404,response
+#from http import HTTPStatus
 #from rest_framework import status,generics
-from rest_framework.response import Response
-from rest_framework.decorators import parser_classes
+#from rest_framework.response import Response
+#from rest_framework.decorators import parser_classes
 #from rest_framework.parsers import MultiPartParser
-from .resources import *
-from django.db.models import Sum, F, Count, FloatField
+from .resources import RegisterResource,ReceiptsResource,PledgesResource,ExportFile
+from django.db.models import Sum, F, Count
 from django.db.models.functions import TruncMonth
 import json
 import pandas as pd
-from .forms import *
-from .models import *
+from .forms import loginform, Registerform,Pledgeform,receiptform
+from .models import Register,Receipts,Pledges
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
-import datetime
+#import datetime
 from tablib import Dataset
 
 # Create your views here.
 def index(request):
     #return HttpResponse("Hello, You're view is rendering.")
     pass
-    
+
 
 
 def loginpage(request):
-    #return HttpResponse('Hello, You're view is rendering')
-    context = {}
+
     user  = None
     form = loginform(request.POST)
     if request.method == 'POST':
@@ -43,9 +42,9 @@ def loginpage(request):
             #print(request.user)
             if user is not None:
                 user_login(request, user)
-                #print(request.user)                
+                #print(request.user)
                 return redirect ('homepage')
-                
+
             else:
                 messages.info(request, 'Username or Password is incorrect')
                 return render (request, 'loginpage.html', {'form':form})
@@ -53,7 +52,7 @@ def loginpage(request):
         form = loginform()
         user_logout(request)
         #print(request.user)
-    return render (request, 'loginpage.html', {'form':form}) 
+    return render (request, 'loginpage.html', {'form':form})
 
 
 
@@ -69,17 +68,17 @@ def registerpage(request):
             #print(form.cleaned_data)
             return redirect ('pledgesummary')
         else:
-            messages.info(request, 'incorrect input / error')           
+            messages.info(request, 'incorrect input / error')
             return render (request, 'registermemberpage.html', context)
-            
+
     context = {'form':form}
     return render (request, 'registermemberpage.html', context)
-    
 
 
 
 
-def addpledge(request):  
+
+def addpledge(request):
     form = Pledgeform(request.POST)
     context = {'form':form}
     if request.method == 'POST':
@@ -89,9 +88,9 @@ def addpledge(request):
             #print(form.cleaned_data)
             return redirect ('membersearch')
         else:
-            messages.info(request, 'incorrect input / error')           
+            messages.info(request, 'incorrect input / error')
             return render (request, 'addpledgepage.html', context)
-            
+
     context = {'form':form}
     return render (request, 'addpledgepage.html', context)
 
@@ -99,12 +98,12 @@ def addpledge(request):
 
 
 
-def homepage(request): 
+def homepage(request):
     yr = Receipts.objects.values('rdate').distinct()
     #mnt = Receipts.objects.values('rdate')
     yrlst = list(set([i['rdate'].strftime("%Y") for i in yr]))#get year list from date field
     yrlst.sort()
-    
+
     #break down for datefilter
     """for years in yrlst:
         q = Pledges.objects.filter(pdate__year=years) #filter by year
@@ -124,7 +123,7 @@ def homepage(request):
 
 
 
-def pledgesummary(request): 
+def pledgesummary(request):
     plg = Register.objects.distinct().all()
     print(plg)
     context = {'plg':plg}
@@ -133,12 +132,12 @@ def pledgesummary(request):
 
 
 
-def monthlysum(request, yr): 
+def monthlysum(request, yr):
     #print(yr)--debug
     mnths = [Receipts.objects.filter(rdate__year=yr).values('rdate__year') #filter by year
          .annotate(month=TruncMonth('rdate')).values('month') #group into month
          .annotate(total=Sum('ramount'), count=Count('ramount')).values('month', 'total', 'count') ] #sum values
-    
+
     #print(mnths) #--debug
     context = {'yr':yr, 'mnths':mnths}
     return render (request, 'monthlysum.html', context)
@@ -153,7 +152,7 @@ def membersearch(request):
 
 
 
-def addreceipt(request, nm, id):  
+def addreceipt(request, nm, id):
     #print(nm)
     form = receiptform(request.POST)
     context = {'form':form, 'name':nm}
@@ -166,18 +165,18 @@ def addreceipt(request, nm, id):
             rct = {'user':request.user, 'date':rdate, 'name':nm, 'amnt':ramount}
 
             #save to receipts data
-            receipt,created = Receipts.objects.get_or_create( 
+            receipt,created = Receipts.objects.get_or_create(
                                             user=rct['user'],
-                                            rdate=rct['date'], 
+                                            rdate=rct['date'],
                                             rname_id=id,
                                             ramount=rct['amnt'],
                                             )
             #receipt.save()
             return redirect ('pledgesummary')
         else:
-            messages.info(request, 'incorrect input / error')           
+            messages.info(request, 'incorrect input / error')
             return render (request, 'addreceiptpage.html', context)
-            
+
     context = {'form':form, 'name':nm}
     return render (request, 'addreceiptpage.html', context)
 
@@ -214,7 +213,7 @@ def ImportingFiles(request):
         df = pd.read_excel(file)
         df['contact'] =  df['contact'].apply(lambda x:'0'+str(x))
 
-        imported_data = dataset.load(df)
+        dataset = dataset.load(df)
         result = file_resource.import_data(dataset, dry_run=True)  # Test the data import
 
         if not result.has_errors():
@@ -242,7 +241,7 @@ def ExportingFiles(request):
     return render (request, 'fileExport.html', context)
 
 
-def memContact(request): 
+def memContact(request):
      response = ExportFile.exportEXCEL(rsc=RegisterResource(), fln='membersContactData')
      return response
 
@@ -263,7 +262,7 @@ def Memberspledge(request,yr):
         response['Content-Disposition'] = f'attachment; filename={yr}pledgesMade.csv'
         df.to_csv(response, index=False)
     return response
-    
+
 
 def Memberspayments(request,yr):
     #print(yr)
@@ -279,8 +278,8 @@ def Memberspayments(request,yr):
         df.to_csv(response, index=False)
         return response
     #return HttpResponse("hi")
-    
-    
+
+
 
 def Membersbalances(request,yr):
     return redirect('homepage')
@@ -297,7 +296,7 @@ def Membersbalances(request,yr):
         df.to_csv(response, index=False)
         return response
     #return HttpResponse("hi")
-    
 
-    
-    
+
+
+
