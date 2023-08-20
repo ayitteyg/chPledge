@@ -21,10 +21,14 @@ class PledgesResource(resources.ModelResource):
 class ReceiptsResource(resources.ModelResource):
     class Meta:
         model = Receipts
+        fields = ('user', 'rdate', 'rname__name', 'ramount')
+        labels = {
+                    'rdate':'date',
+                    'ramount':'amount',
+                    'rname__name':'name'
+                 }
 
-        def __str__(self):
-     #   print(self.name)
-            return self.rname__name
+       
 
 
 
