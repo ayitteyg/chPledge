@@ -99,16 +99,21 @@ def addpledge(request):
 
 
 def homepage(request):
-    yr = Receipts.objects.values('rdate').distinct()
-    #mnt = Receipts.objects.values('rdate')
-    yrlst = list(set([i['rdate'].strftime("%Y") for i in yr]))#get year list from date field
+    pyr = [ i['pdate'] for i in Pledges.objects.values('pdate').distinct()] #pledge dates
+    ryr = [i['rdate'] for i in Receipts.objects.values('rdate').distinct()] #receipts dates
+    
+    yr = pyr+ryr #join the dates
+
+    #print(yr)
+  
+    yrlst = list(set([i.strftime("%Y") for i in yr]))#get year list from date 
     yrlst.sort()
 
     #break down for datefilter
-    """for years in yrlst:
-        q = Pledges.objects.filter(pdate__year=years) #filter by year
+    #for years in yrlst:
+        #q = Pledges.objects.filter(pdate__year=years) #filter by year
         #print(q)
-        t = q.values('pdate__year').annotate(total=Sum('pamount')) #get totals for each name
+        #t = q.values('pdate__year').annotate(total=Sum('pamount')) #get totals for each name
         #print(queryset)"""
     plg = [Pledges.objects.filter(pdate__year=years).values('pdate__year').annotate(total=Sum('pamount'), count=Count('name')) for years in yrlst]
     #print(plg)
@@ -118,6 +123,7 @@ def homepage(request):
 
     context = {'yr':yrlst, 'plg':plg, 'rct':rct}
     return render (request, 'homepage.html', context)
+    #return HttpResponse("hi") #for debug
 
 
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,9 +40,9 @@
                     <div class="col-md-8">
                       <div class="card-body">
                         <h5 class="card-title" style="text-align: left;"> <a href="">Name: {{i.name}}</a></h5>
-                        <h6 class="card-text" style="text-align: left;" > Commulative Pledges:  GHc: {{i.get_pledge}}</h6>
-                        <h6 class="card-text" style="text-align: left;" > Total Returns: GHc: {{i.get_total_rct}}</h6>
-                        <h6 class="card-text" style="text-align: left;" > Total Remains  : GHc: {{i.get_bal}}</h6>
+                        <h6 class="card-text" style="text-align: left;" > Commulative Pledges:  GHc: {{i.get_pledge|intcomma}}</h6>
+                        <h6 class="card-text" style="text-align: left;" > Total Returns: GHc: {{i.get_total_rct|intcomma}}</h6>
+                        <h6 class="card-text" style="text-align: left;" > Total Remains  : GHc: {{i.get_bal|intcomma}}</h6>
                         <p class="card-text" style="text-align: left;">
                            <small class="text-body-secondary">payable: {{i.get_payable}}</small>
                            <a href="tel: i.contact">{{i.contact}}  <span class="fa fa-phone"></span></a>

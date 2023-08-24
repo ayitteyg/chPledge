@@ -4,18 +4,18 @@
 
 h4{
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(235, 250, 250);
+    
 }
 
 h5{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    color: aliceblue;
+    
 }
 
 
 h6{
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: aqua;
+    
 }
 
 .crd{
@@ -23,5 +23,5 @@ h6{
 }
 
 .crdtxt{
-   color: rgb(230, 239, 241);
+   color: rgb(4, 48, 58);
 }

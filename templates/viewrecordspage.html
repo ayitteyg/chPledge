@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +52,7 @@
                                     <td class="tbl-head2">  <a><small>{{rct.rname}}</small></a></td>
                                     <td class="tbl-head2">
                                         
-                                        <small>{{rct.ramount}}</small>&nbsp;&nbsp;
+                                        <small>{{rct.ramount|intcomma}}</small>&nbsp;&nbsp;
                                         <span  id="{{rct.id}}" onclick="delete_receipt(this.id)" class="fa fa-trash-o"></span>
                                     </td>
                                 </tr>

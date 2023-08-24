@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -48,7 +49,7 @@
                                 <tr  class="tbl-head">
                                     <td>  <small>{{i.pdate__year}}</small> </td>
                                     <td>  <small>{{i.count}}</small> </td>
-                                    <td>  <small>{{i.total}}</small> </td>                                  
+                                    <td>  <small>{{i.total|intcomma}}</small> </td>                                  
                                 </tr>
                             </table> 
                         </li>                                              
@@ -89,7 +90,7 @@
                                 <tr class="tbl-head2">
                                     <td class="tbl-head2">  <small>{{i.rdate__year}}</small> </td>
                                     <td class="tbl-head2">  <small>{{i.count}}</small> </td>
-                                    <td class="tbl-head2">  <small>{{i.total}}</small> </td>                                  
+                                    <td class="tbl-head2">  <small>{{i.total|intcomma}}</small> </td>                                  
                                 </tr>
                             </table> 
                         </li>                                              
@@ -111,7 +112,7 @@
 
     <!--Monthly summary-->
     <div class="container-fluid  ">
-       
+       <br>
         <center>
             <div class="row">
                 <br>

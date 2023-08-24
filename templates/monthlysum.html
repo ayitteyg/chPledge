@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -53,7 +54,7 @@
                             <table class="table">
                                 <tr  class="tbl-head2">
                                     <td class="tbl-head2">  <small>{{m.month|date:'M'}}</small> </td>
-                                    <td class="tbl-head2">  <small>{{m.total}}</small> </td>
+                                    <td class="tbl-head2">  <small>{{m.total|intcomma}}</small> </td>
                                     <td class="tbl-head2">  <small>{{m.count}}</small> </td>
                                 </tr>
                             </table> 
