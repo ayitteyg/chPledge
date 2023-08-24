@@ -7,9 +7,14 @@ from django.contrib import admin
 
 # Register your models here.
 admin.site.register(Receipts)
-admin.site.register(Register)
+
 
 #this add the import export model to the admin
 @admin.register(Pledges)
 class PledgesAdmin(ImportExportModelAdmin):
+    pass
+
+
+@admin.register(Register)
+class RegisterAdmin(ImportExportModelAdmin):
     pass

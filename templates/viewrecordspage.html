@@ -32,7 +32,7 @@
             <div class="row">
                 <br>
                 <div  class="col-lg-12 ">                                     
-                    <table class="table">
+                    <table class="tbl-head2">
                         <tr>
                             <th><small>Recorded by</small></th>
                             <th><small>Date recorded</small></th>
@@ -45,11 +45,11 @@
                         {% for rct in rcds %}
                         <li> 
                             <table id="RCD" class="table">
-                                <tr>
-                                    <td>  <small>{{rct.user}}</small> </td>
-                                    <td>  <small>{{rct.rdate}}</small> </td>
-                                    <td>  <a><small>{{rct.rname}}</small></a></td>
-                                    <td>
+                                <tr class="tbl-head2">
+                                    <td class="tbl-head2">  <small>{{rct.user}}</small> </td>
+                                    <td class="tbl-head2">  <small>{{rct.rdate}}</small> </td>
+                                    <td class="tbl-head2">  <a><small>{{rct.rname}}</small></a></td>
+                                    <td class="tbl-head2">
                                         
                                         <small>{{rct.ramount}}</small>&nbsp;&nbsp;
                                         <span  id="{{rct.id}}" onclick="delete_receipt(this.id)" class="fa fa-trash-o"></span>

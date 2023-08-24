@@ -125,7 +125,7 @@ def homepage(request):
 
 def pledgesummary(request):
     plg = Register.objects.distinct().all()
-    print(plg)
+    #print(plg)
     context = {'plg':plg}
     return render (request, 'pledgesumpage.html', context)
 

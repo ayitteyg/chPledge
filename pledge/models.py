@@ -56,9 +56,9 @@ class Receipts(models.Model):
     rdate = models.DateField(null=False)
     rname = models.ForeignKey(Register, on_delete=models.CASCADE)
     ramount = models.FloatField (null=False)
-    def __str__(self):
+    #def __str__(self):
      #   print(self.name)
-        return self.rname__name
+       # return self.rname_id__name
 
 
 
