@@ -18,12 +18,28 @@ class loginform(forms.Form):
         return cleaned_data 
 
 
+
 class receiptform(forms.Form):
     date = forms.DateField(label='',widget= DateInput())
     amount = forms.FloatField(label='',widget=forms.TextInput (attrs={'placeholder': 'GHc: 0.00'}))
     def clean(self):
         cleaned_data = super(receiptform, self).clean()
         return cleaned_data 
+
+
+
+class Memberupdateform(forms.Form):
+    name = forms.CharField(label='', widget=forms.TextInput (attrs={'placeholder': 'Edit Name'}))
+    contact = forms.CharField(label='', widget=forms.TextInput (attrs={'placeholder': 'Edit Contact'}))
+    def clean(self):
+        return self.data
+
+        #if not self.fields in self.data:
+        #    return self.fields.initial
+        #cleaned_data = super(Memberupdateform, self).clean()
+        #return cleaned_data
+       
+
 
 
 class Pledgeform(forms.ModelForm):

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+    <div class="container-fluid">
+        <br><br>
+        <center>
+            <div class="col-lg-6">              
+                <img src="{% static 'images/lg2.png' %}" alt=""   width="90"  height="140">
+            </div>
+            <hr>  
+        </center>
+    </div>
+
+    <!--add receipt form-->
+    <div class="container-fluid">
+     <h6>{{name}}</h6>
+       
+            <br>
+            <div class="col-lg-6 box-element">
+                <p> <small>Name: {{nm}}</small></p>
+                <p> <small>Contact: {{c}}</small></p>
+
+                 {% csrf_token %}
+                    <form action="", method="post" novalidate>
+                        {% csrf_token %}
+                        {% include 'formTemplate.html' with form=form %} 
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <small class="{{ message.tags}}"  style="color: brown;">{{message}}</small>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}      
+                        <br>
+                        <button type="submit" class="btn btn-secondary"> update</button>    
+                    </form>
+
+                <br><br>
+                <a href="{% url 'membersearch' %}">back
+                    <span class="fa fa-backward">
+
+                    </span>
+                </a>
+            </div>
+
+        
+    </div>   
+    {% endblock %}
+</body>
+</html>

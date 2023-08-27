@@ -73,6 +73,22 @@ function delete_receipt(id){
 }
 
 
+function update_member(id){    
+  console.log(id)
+  /*window.confirm("updating member:", id);
+  location.reload()*/
+  window.location.replace = "/member-search-update/"
+
+  var url = '/member-search-update/'
+  fetch(url,{
+      method: 'POST',
+      headers: {
+       'Content-Type':'application/json',
+       'X-CSRFToken':csrftoken},
+       body:JSON.stringify({'memberId':id})             
+  })   
+}
+
 
 
 function PLGfunction() {

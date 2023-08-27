@@ -32,9 +32,14 @@
            
         <ul id="srchUL">
           {% for nm in mem %} 
-              <li  
-                onclick="show_addReceipt()"  id="{{nm}}"> <a href="{% url 'addreceipt' nm.name nm.id %}"> {{nm.name}}</a> 
-              </li>        
+              <li                           
+                 id="{{nm}}">                                                    
+                <small> <a onclick="show_addReceipt()" href="{% url 'addreceipt' nm.name nm.id %}"> {{nm.name}}</a></small>                                      
+                <!--edit btn-->
+                <span> <a  class="fa fa-edit" href="{% url 'memberupdate' nm.name nm.id%}"></a> </span>
+              </li> 
+           
+                  
           {% endfor %}  
         </ul>           
      </div>    

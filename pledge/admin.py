@@ -6,7 +6,9 @@ from django.contrib import admin
 
 
 # Register your models here.
-admin.site.register(Receipts)
+@admin.register(Receipts)
+class ReceiptsAdmin(ImportExportModelAdmin):
+    pass
 
 
 #this add the import export model to the admin

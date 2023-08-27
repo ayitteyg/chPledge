@@ -10,7 +10,7 @@ from django.db.models import Sum, F, Count
 from django.db.models.functions import TruncMonth
 import json
 import pandas as pd
-from .forms import loginform, Registerform,Pledgeform,receiptform
+from .forms import loginform, Registerform,Pledgeform,receiptform,Memberupdateform
 from .models import Register,Receipts,Pledges
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -75,6 +75,34 @@ def registerpage(request):
     return render (request, 'registermemberpage.html', context)
 
 
+
+
+def memberupdate(request, nm, id):
+    c = [i['contact']  for i in Register.objects.filter(id=id).values('contact')][0] 
+    #print(nm,id,c)
+    form = Memberupdateform(request.POST)
+    context = {'nm':nm, 'c':c, 'form':form}
+    if request.method == 'POST':
+       
+        name = form.data['name']
+        contact = form.data['contact']
+
+        if name == "":
+            name = nm
+        if contact == "":
+            contact = c            
+        #print('name: ', name,  'contact:',c)
+       
+        #action here: get the object with the id and update with values in default
+        obj, created = Register.objects.update_or_create(id=id,
+            defaults={'name': name, 'contact':contact},
+        )
+        obj.save()
+        return redirect ('pledgesummary')
+      
+    context = {'nm':nm, 'c':c, 'form':form}
+    return render (request, 'memberupdate.html', context)
+    #return HttpResponse("updating")
 
 
 
